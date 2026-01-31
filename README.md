@@ -2,6 +2,12 @@
 
 Scanner Bot is a Go-based automation tool designed to process scanned receipts and documents. It watches a specified directory for new files, uploads them to Google's Gemini Pro Vision model for analysis, and automatically renames and organizes them based on their content.
 
+I made this because I get so many paper receipts and certificates from doctors etc that it's getting messy to keep all the papers together.
+
+It's a tax season right now and I was manually typing in the medical receipts for deduction and well... I'm missing a few because I couldn't be arsed to stash them in the right place when I got them. I have my scanner set to scan directly to the folder that this bit of sofware watches.
+
+It works :D
+
 ## Features
 
 - **Automated Directory Watching**: Monitors a folder for new scans (PDF, JPG, PNG, JPEG).
