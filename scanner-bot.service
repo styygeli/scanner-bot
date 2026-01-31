@@ -1,0 +1,22 @@
+[Unit]
+Description=Gemini Receipt Scanner Bot
+After=network.target
+
+[Service]
+# --- USER CONFIGURATION ---
+User=your_username
+Group=your_group
+WorkingDirectory=/path/to/your/script_folder
+
+# API KEY
+Environment="GEMINI_API_KEY=YOUR_API_KEY_HERE"
+
+# --- EXECUTION ---
+# You must now explicitly set the -watch and -dest flags
+ExecStart=/path/to/scanner_bot -watch /path/to/scanner_in -dest /path/to/documents_out
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
