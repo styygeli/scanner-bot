@@ -44,7 +44,7 @@ It works :D
     [Service]
     User=your_user
     Environment="GEMINI_API_KEY=your_api_key_here"
-    ExecStart=/path/to/scanner-bot -watch "/path/to/input" -dest "/path/to/output"
+    ExecStart=/path/to/scanner-bot -watch "/path/to/input" -dest "/path/to/output" -workers 2 -syslog=true
     ```
 
     Then copy it to systemd and enable it:
@@ -54,7 +54,10 @@ It works :D
     sudo systemctl enable --now scanner-bot
     ```
 
-## Usage
+    To view the logs (which are routed to syslog by default), use journalctl:
+    ```bash
+    sudo journalctl -u scanner-bot -f
+    ```
 
 ## Usage
 
