@@ -56,17 +56,22 @@ It works :D
 
 ## Usage
 
+## Usage
+
 You can run the bot manually from the command line:
 
 ```bash
 export GEMINI_API_KEY="your_api_key_here"
-./scanner-bot -watch "/path/to/watch/dir" -dest "/path/to/output/dir"
+./scanner-bot -watch "/path/to/watch/dir" -dest "/path/to/output/dir" -model "gemini-1.5-flash" -workers 2
 ```
 
 ### Flags
 
 - `-watch`: (Required) The directory to watch for new incoming scan files.
 - `-dest`: (Required) The root directory where processed files and the `originals` folder will be created.
+- `-model`: The Gemini model to use (default: "gemini-3-flash-preview").
+- `-syslog`: Enable logging to the system's syslog daemon (default: true).
+- `-workers`: Maximum number of concurrent files to process, to prevent Gemini API rate limits (default: 2).
 
 ## How it Works
 

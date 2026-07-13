@@ -12,8 +12,9 @@ WorkingDirectory=/path/to/your/script_folder
 Environment="GEMINI_API_KEY=YOUR_API_KEY_HERE"
 
 # --- EXECUTION ---
-# You must now explicitly set the -watch and -dest flags
-ExecStart=/path/to/scanner_bot -watch /path/to/scanner_in -dest /path/to/documents_out
+# You must explicitly set the -watch and -dest flags.
+# Optional flags: -model "gemini-3-flash-preview", -syslog (default true), -workers (default 2)
+ExecStart=/path/to/scanner_bot -watch /path/to/scanner_in -dest /path/to/documents_out -workers 2
 
 Restart=always
 RestartSec=5
