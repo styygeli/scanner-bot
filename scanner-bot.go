@@ -270,6 +270,17 @@ func analyzeReceipt(ctx context.Context, client *genai.Client, path string) ([]R
 }
 
 func parseGeminiResponse(jsonText string) ([]ReceiptData, error) {
+	jsonText = strings.TrimSpace(jsonText)
+	if strings.HasPrefix(jsonText, "```json") {
+		jsonText = strings.TrimPrefix(jsonText, "```json")
+	} else if strings.HasPrefix(jsonText, "```") {
+		jsonText = strings.TrimPrefix(jsonText, "```")
+	}
+	if strings.HasSuffix(jsonText, "```") {
+		jsonText = strings.TrimSuffix(jsonText, "```")
+	}
+	jsonText = strings.TrimSpace(jsonText)
+
 	var dataList []ReceiptData
 	var single ReceiptData
 
