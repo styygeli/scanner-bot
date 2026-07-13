@@ -22,6 +22,7 @@ import (
 )
 
 // --- CONFIGURATION ---
+const Version = "v1.01"
 
 var (
 	// Configurable paths via flags
@@ -68,6 +69,8 @@ func main() {
 		flag.Usage()
 		log.Fatal("Both -watch and -dest flags are required")
 	}
+
+	log.Printf("Starting scanner-bot %s", Version)
 
 	// 1. Setup Gemini Client
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
@@ -270,16 +273,13 @@ func analyzeReceipt(ctx context.Context, client *genai.Client, path string) ([]R
 }
 
 func parseGeminiResponse(jsonText string) ([]ReceiptData, error) {
-	jsonText = strings.TrimSpace(jsonText)
-	if strings.HasPrefix(jsonText, "```json") {
-		jsonText = strings.TrimPrefix(jsonText, "```json")
-	} else if strings.HasPrefix(jsonText, "```") {
-		jsonText = strings.TrimPrefix(jsonText, "```")
+	// Robustly extract JSON by finding the first and last structural characters
+	firstBrace := strings.IndexAny(jsonText, "{[")
+	lastBrace := strings.LastIndexAny(jsonText, "}]")
+
+	if firstBrace != -1 && lastBrace != -1 && lastBrace >= firstBrace {
+		jsonText = jsonText[firstBrace : lastBrace+1]
 	}
-	if strings.HasSuffix(jsonText, "```") {
-		jsonText = strings.TrimSuffix(jsonText, "```")
-	}
-	jsonText = strings.TrimSpace(jsonText)
 
 	var dataList []ReceiptData
 	var single ReceiptData
